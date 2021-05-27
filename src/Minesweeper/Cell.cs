@@ -13,16 +13,16 @@ namespace Minesweeper
             IsBomb = true;
         }
 
-        public override string ToString()
-        {
-            if (IsCover is true) return ".";
-            if (IsBomb is true) return "*";
-            return NearBombsCount.ToString();
-        }
-
         public void Click()
         {
             IsCover = false;
         }
+
+        public override string ToString() => (IsCover, IsBomb, NearBombsCount) switch
+        {
+            (true, _, _) => ".",
+            (false, true, _) => "*",
+            (false, false, var m) => m.ToString()
+        };
     }
 }
