@@ -6,6 +6,7 @@ namespace Minesweeper
     {
         public bool IsBomb { get; set; }
         public int NearBombsCount { get; set; }
+        public bool IsCover { get; private set; } = true;
 
         public void SetBomb()
         {
@@ -14,6 +15,7 @@ namespace Minesweeper
 
         public override string ToString()
         {
+            if (IsCover is true) return ".";
             if (IsBomb is true) return "*";
             return NearBombsCount.ToString();
         }
