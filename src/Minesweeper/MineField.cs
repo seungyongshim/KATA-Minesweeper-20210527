@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -33,18 +34,21 @@ namespace Minesweeper
 
         public void GenerateBombs(int countBombs)
         {
-            var rand = new Random();
-
-            for (int i = 0; i < countBombs; i++)
+            foreach (var idx in (from idx in RandomGenerator()
+                                 select idx).Distinct().Take(countBombs))
             {
-                var index =  rand.Next(Width * Height);
-
-                if (Cells[index].IsBomb)
-                {
-                    i--;
-                }
-                Cells[index].SetBomb();
+                Cells[idx].SetBomb();
             }
         }
+
+        public IEnumerable<int> RandomGenerator()
+        {
+            while(true)
+            {
+                yield return RandomNumberGenerator.GetInt32(Width * Height);
+            }
+        }
+
+        
     }
 }
