@@ -4,8 +4,17 @@ namespace Minesweeper
 {
     public class Cell
     {
-        public object IsBomb { get; set; }
+        public bool IsBomb { get; set; }
 
-        public void SetBomb() => throw new NotImplementedException();
+        public void SetBomb()
+        {
+            IsBomb = true;
+        }
+
+        public override string ToString()
+        {
+            if (IsBomb is true) return "*";
+            return string.Empty;
+        }
     }
 }
