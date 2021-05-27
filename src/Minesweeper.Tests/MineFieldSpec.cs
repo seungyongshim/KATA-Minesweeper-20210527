@@ -32,7 +32,7 @@ namespace Minesweeper.Tests
             sut.GenerateBombs(3);
 
             // Assert
-            sut.Cells.Select(x => x.IsBomb)
+            sut.Cells.Where(x => x.IsBomb)
                      .Count()
                      .Should().Be(3);
         }

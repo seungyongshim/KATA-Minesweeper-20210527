@@ -27,9 +27,24 @@ namespace Minesweeper
 
         public IList<Cell> Cells { get; set; }
 
-        public void GenerateBombs(int v) => throw new NotImplementedException();
-
+        
         public int Width { get; }
         public int Height { get; }
+
+        public void GenerateBombs(int countBombs)
+        {
+            var rand = new Random();
+
+            for (int i = 0; i < countBombs; i++)
+            {
+                var index =  rand.Next(Width * Height);
+
+                if (Cells[index].IsBomb)
+                {
+                    i--;
+                }
+                Cells[index].SetBomb();
+            }
+        }
     }
 }
