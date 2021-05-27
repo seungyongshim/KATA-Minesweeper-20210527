@@ -15,7 +15,7 @@ namespace Minesweeper
         public override string ToString()
         {
             if (IsBomb is true) return "*";
-            return string.Empty;
+            return NearBombsCount.ToString();
         }
     }
 }
