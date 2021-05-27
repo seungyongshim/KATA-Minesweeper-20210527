@@ -31,5 +31,17 @@ namespace Minesweeper.Tests
             // Assert
             cell.ToString().Should().Be("7");
         }
+
+        [Fact]
+        public void IsCover()
+        {
+            // Arrange
+            var cell = new Cell();
+
+            // Act
+
+            // Assert
+            cell.ToString().Should().Be(".");
+        }
     }
 }
