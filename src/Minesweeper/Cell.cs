@@ -19,5 +19,10 @@ namespace Minesweeper
             if (IsBomb is true) return "*";
             return NearBombsCount.ToString();
         }
+
+        public void Click()
+        {
+            IsCover = false;
+        }
     }
 }
