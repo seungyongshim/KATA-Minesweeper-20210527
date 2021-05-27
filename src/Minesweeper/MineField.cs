@@ -26,6 +26,9 @@ namespace Minesweeper
         }
 
         public IList<Cell> Cells { get; set; }
+
+        public void GenerateBombs(int v) => throw new NotImplementedException();
+
         public int Width { get; }
         public int Height { get; }
     }

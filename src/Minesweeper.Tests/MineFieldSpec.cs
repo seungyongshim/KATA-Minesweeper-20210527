@@ -21,5 +21,20 @@ namespace Minesweeper.Tests
             // Assert
             sut.Cells.Count().Should().Be(9);
         }
+
+        [Fact]
+        public void GenerateBombs()
+        {
+            // Arrange
+            var sut = new MineField(3, 3);
+
+            // Act
+            sut.GenerateBombs(3);
+
+            // Assert
+            sut.Cells.Select(x => x.IsBomb)
+                     .Count()
+                     .Should().Be(3);
+        }
     }
 }
