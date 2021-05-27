@@ -18,5 +18,18 @@ namespace Minesweeper.Tests
             // Assert
             cell.ToString().Should().Be("*");
         }
+
+        [Fact]
+        public void NearBombsCount()
+        {
+            // Arrange
+            var cell = new Cell();
+
+            // Act
+            cell.NearBombsCount = 7;
+
+            // Assert
+            cell.ToString().Should().Be("7");
+        }
     }
 }

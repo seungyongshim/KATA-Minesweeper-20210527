@@ -5,6 +5,7 @@ namespace Minesweeper
     public class Cell
     {
         public bool IsBomb { get; set; }
+        public int NearBombsCount { get; set; }
 
         public void SetBomb()
         {
