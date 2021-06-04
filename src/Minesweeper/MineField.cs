@@ -71,6 +71,7 @@ namespace Minesweeper
             }
         }
 
+        public void Click(int v1, int v2) => throw new System.NotImplementedException();
         private Cell GetCell(int x, int y) => (x, y) switch
         {
             (var a, _) when a < 0 => null,

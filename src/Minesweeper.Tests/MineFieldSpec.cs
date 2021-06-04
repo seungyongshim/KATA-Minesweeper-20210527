@@ -55,5 +55,24 @@ namespace Minesweeper.Tests
                                      1, 2, 1,
                                      0, 0, 0);
         }
+
+        [Fact]
+        public void Click()
+        {
+            // Arrange
+            var sut = new MineField(3, 3);
+            sut.Cells[0].SetBomb();
+            sut.CalculatedNearBombsCount();
+
+            // Act
+            sut.Click(2, 2);
+
+            // Assert
+            sut.Cells.Select(x => x.ToString())
+                     .Should()
+                     .BeEquivalentTo(".", "1", "0",
+                                     "1", "1", "0",
+                                     "0", "0", "0");
+        }
     }
 }
