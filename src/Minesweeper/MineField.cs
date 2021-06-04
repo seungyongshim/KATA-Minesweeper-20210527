@@ -71,7 +71,23 @@ namespace Minesweeper
             }
         }
 
-        public void Click(int v1, int v2) => throw new System.NotImplementedException();
+        public void Click(int x, int y)
+        {
+            var cell = GetCell(x, y);
+
+            if (cell.IsCover is not true) return;
+
+            cell.Click();
+
+            if (cell.NearBombsCount == 0)
+            {
+                foreach (var nearcell in NearCellGenerator(cell))
+                {
+                    Click(nearcell.XY.x, nearcell.XY.y);
+                }
+            }
+        }
+
         private Cell GetCell(int x, int y) => (x, y) switch
         {
             (var a, _) when a < 0 => null,
