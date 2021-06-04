@@ -13,7 +13,7 @@ namespace Minesweeper
 
             Cells = (from y in Enumerable.Range(0, Height)
                      from x in Enumerable.Range(0, Width)
-                     select new Cell((x,y)))
+                     select new Cell((x, y), NearCellGenerator(x, y)))
                     .ToList();
         }
 
@@ -52,10 +52,8 @@ namespace Minesweeper
             }
         }
 
-        private IEnumerable<Cell> NearCellGenerator(Cell cell)
+        private IEnumerable<Cell> NearCellGenerator(int x, int y)
         {
-            var (x, y) = cell.XY;
-
             return InternalNearCellCenerator().Where(x => x is not null);
 
             IEnumerable<Cell> InternalNearCellCenerator()
@@ -71,23 +69,17 @@ namespace Minesweeper
             }
         }
 
-        public void Click(int x, int y)
+        private IEnumerable<Cell> NearCellGenerator(Cell cell)
         {
-            var cell = GetCell(x, y);
+            var (x, y) = cell.XY;
 
-            if (cell.IsCover is not true) return;
-
-            cell.Click();
-
-            if (cell.NearBombsCount == 0)
-            {
-                foreach (var nearcell in NearCellGenerator(cell))
-                {
-                    Click(nearcell.XY.x, nearcell.XY.y);
-                }
-            }
+            return NearCellGenerator(x, y);
         }
 
+        public void Click(int x, int y)
+        {
+            GetCell(x, y).Click();
+        }
         private Cell GetCell(int x, int y) => (x, y) switch
         {
             (var a, _) when a < 0 => null,
