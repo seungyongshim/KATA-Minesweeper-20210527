@@ -45,7 +45,7 @@ namespace Minesweeper
                                 where cell.IsBomb
                                 select cell)
             {
-                foreach(var nearcell in NearCellGenerator(cell).Where(x => x is not null))
+                foreach(var nearcell in NearCellGenerator(cell))
                 {
                     nearcell.NearBombsCount++;
                 }
@@ -56,14 +56,19 @@ namespace Minesweeper
         {
             var (x, y) = cell.XY;
 
-            yield return GetCell(x - 1, y - 1);
-            yield return GetCell(x , y - 1);
-            yield return GetCell(x + 1, y - 1);
-            yield return GetCell(x - 1, y );
-            yield return GetCell(x + 1, y );
-            yield return GetCell(x - 1, y + 1);
-            yield return GetCell(x , y + 1);
-            yield return GetCell(x + 1, y + 1);
+            return InternalNearCellCenerator().Where(x => x is not null);
+
+            IEnumerable<Cell> InternalNearCellCenerator()
+            {
+                yield return GetCell(x - 1, y - 1);
+                yield return GetCell(x, y - 1);
+                yield return GetCell(x + 1, y - 1);
+                yield return GetCell(x - 1, y);
+                yield return GetCell(x + 1, y);
+                yield return GetCell(x - 1, y + 1);
+                yield return GetCell(x, y + 1);
+                yield return GetCell(x + 1, y + 1);
+            }
         }
 
         private Cell GetCell(int x, int y) => (x, y) switch
