@@ -38,5 +38,7 @@ namespace Minesweeper
                 yield return RandomNumberGenerator.GetInt32(Width * Height);
             }
         }
+
+        public void CalculatedNearBombsCount() => throw new System.NotImplementedException();
     }
 }

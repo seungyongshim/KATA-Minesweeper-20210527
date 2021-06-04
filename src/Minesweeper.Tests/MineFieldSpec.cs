@@ -36,5 +36,24 @@ namespace Minesweeper.Tests
                      .Count()
                      .Should().Be(3);
         }
+
+        [Fact]
+        public void CalculatedNearBombsCount()
+        {
+            // Arrange
+            var sut = new MineField(3, 3);
+            sut.Cells[0].SetBomb();
+
+            // Act
+            sut.CalculatedNearBombsCount();
+
+            // Assert
+            sut.Cells.Select(x => x.NearBombsCount)
+                     .Should()
+                     .BeEquivalentTo(0, 1, 0,
+                                     1, 1, 0,
+                                     0, 0, 0);
+            throw new NotImplementedException();
+        }
     }
 }
