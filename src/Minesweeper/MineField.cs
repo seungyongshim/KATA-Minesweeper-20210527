@@ -1,9 +1,6 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Minesweeper
 {
@@ -14,21 +11,14 @@ namespace Minesweeper
             Width = width;
             Height = height;
 
-            Cells = new Cell[Width * Height];
-
-            for (int j = 0; j < Height; j++)
-            {
-                for (int i = 0; i < Width; i++)
-                {
-                    Cells[i + j * Width] = new Cell();
-                }
-            }
-
+            Cells = (from y in Enumerable.Range(0, Height)
+                     from x in Enumerable.Range(0, Width)
+                     select new Cell())
+                    .ToList();
         }
 
         public IList<Cell> Cells { get; set; }
 
-        
         public int Width { get; }
         public int Height { get; }
 
@@ -43,12 +33,10 @@ namespace Minesweeper
 
         public IEnumerable<int> RandomGenerator()
         {
-            while(true)
+            while (true)
             {
                 yield return RandomNumberGenerator.GetInt32(Width * Height);
             }
         }
-
-        
     }
 }
