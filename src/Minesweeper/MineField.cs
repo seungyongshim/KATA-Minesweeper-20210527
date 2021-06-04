@@ -13,7 +13,7 @@ namespace Minesweeper
 
             Cells = (from y in Enumerable.Range(0, Height)
                      from x in Enumerable.Range(0, Width)
-                     select new Cell())
+                     select new Cell((x,y)))
                     .ToList();
         }
 
@@ -39,6 +39,40 @@ namespace Minesweeper
             }
         }
 
-        public void CalculatedNearBombsCount() => throw new System.NotImplementedException();
+        public void CalculatedNearBombsCount()
+        {
+            foreach(var cell in from cell in Cells
+                                where cell.IsBomb
+                                select cell)
+            {
+                foreach(var nearcell in NearCellGenerator(cell).Where(x => x is not null))
+                {
+                    nearcell.NearBombsCount++;
+                }
+            }
+        }
+
+        private IEnumerable<Cell> NearCellGenerator(Cell cell)
+        {
+            var (x, y) = cell.XY;
+
+            yield return GetCell(x - 1, y - 1);
+            yield return GetCell(x , y - 1);
+            yield return GetCell(x + 1, y - 1);
+            yield return GetCell(x - 1, y );
+            yield return GetCell(x + 1, y );
+            yield return GetCell(x - 1, y + 1);
+            yield return GetCell(x , y + 1);
+            yield return GetCell(x + 1, y + 1);
+        }
+
+        private Cell GetCell(int x, int y) => (x, y) switch
+        {
+            (var a, _) when a < 0 => null,
+            (var a, _) when a >= Width => null,
+            (_, var b) when b < 0 => null,
+            (_, var b) when b >= Height => null,
+            (var a, var b) => Cells[a + b * Width],
+        };
     }
 }
